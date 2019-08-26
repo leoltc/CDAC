@@ -1,0 +1,301 @@
+mysql> create table numericals
+    -> ( A tinyint,B smallint, C mediumint, D int, E bigint, F decimal(8,2), G double(8,2),H float);
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into numericals
+    -> values(110,200,33445,33345,3333345,999999.9,9999999.99,999999.99);
+ERROR 1264 (22003): Out of range value for column 'G' at row 1
+mysql> values(110,200,33445,33345,3333345,999999.9,999999.99,999999.99);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values(110,200,33445,33345,3333345,999999.9,9
+99999.99,999999.99)' at line 1
+mysql> values(110,200,3445,33345,3333345,999999.9,999999.99,999999.99);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values(110,200,3445,33345,3333345,999999.9,99
+9999.99,999999.99)' at line 1
+mysql> insert into numericals
+    -> values(110,200,33445,33345,3333345,999999.9,999999.99,999999.99);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from numericals;
++------+------+-------+-------+---------+-----------+-----------+--------+
+| A    | B    | C     | D     | E       | F         | G         | H      |
++------+------+-------+-------+---------+-----------+-----------+--------+
+|  110 |  200 | 33445 | 33345 | 3333345 | 999999.90 | 999999.99 | 1e+006 |
++------+------+-------+-------+---------+-----------+-----------+--------+
+1 row in set (0.01 sec)
+
+mysql> create table Date
+    -> (A date, B datetime, C timestamp, D time);
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> insert into date
+    -> values(current_date(),now(),now(),now());
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from date;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 19:25:46 | 2019-08-26 19:25:46 | 19:25:46 |
++------------+---------------------+---------------------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into date
+    -> values(now(),now(),now(),now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> select * from date;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 19:25:46 | 2019-08-26 19:25:46 | 19:25:46 |
+| 2019-08-26 | 2019-08-26 19:27:17 | 2019-08-26 19:27:17 | 19:27:17 |
++------------+---------------------+---------------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> create table specData
+    -> ( id int auto_increment primary key,membership enum("silver","gold","platinum"), hobbies set("swimming","skiing","cricket"));
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> insert into specdata
+    -> (membership,hobbies);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> insert into specdata
+    -> (membership,hobbies)
+    -> values("gold","swimming,skiing");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from specdata;
++----+------------+-----------------+
+| id | membership | hobbies         |
++----+------------+-----------------+
+|  1 | gold       | swimming,skiing |
++----+------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into specdata
+    -> (membership,hobbies)
+    -> values("god","swimming,skiing");
+ERROR 1265 (01000): Data truncated for column 'membership' at row 1
+mysql> insert into specdata
+    -> (membership,hobbies)
+    -> values("gold","swimming,bowling");
+ERROR 1265 (01000): Data truncated for column 'hobbies' at row 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | NULL        |
+|                 2 | Cars   | NULL        |
+|                 3 | Others | NULL        |
+|                 4 | Misc   | NULL        |
+|                 5 | Wheels | NULL        |
+|                 6 | Brakes | NULL        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update productcategory
+    -> set accessories=("Gloves", "seat cover")
+    -> where name=("bikes","cars");
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> update productcategory
+    -> set accessories="Gloves"
+    -> where name="bikes";
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | NULL        |
+|                 3 | Others | NULL        |
+|                 4 | Misc   | NULL        |
+|                 5 | Wheels | NULL        |
+|                 6 | Brakes | NULL        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update productcategory
+    -> set accessories="Seat Cover"
+    -> where name="cars";
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update productcategory
+    -> set accessories="wheels"
+    -> where name="others";
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update productcategory
+    -> set accessories="tyre"
+    -> where name="misc";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update productcategory
+    -> set accessories="123"
+    -> where name="wheels";
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update productcategory
+    -> set accessories="disk"
+    -> where name="brakes";
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> order by name;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 6 | Brakes | disk        |
+|                 2 | Cars   | Seat Cover  |
+|                 4 | Misc   | tyre        |
+|                 3 | Others | wheels      |
+|                 5 | Wheels | 123         |
++-------------------+--------+-------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> order by name desc;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 5 | Wheels | 123         |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 2 | Cars   | Seat Cover  |
+|                 6 | Brakes | disk        |
+|                 1 | Bikes  | Gloves      |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> order by name,accessories desc;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 6 | Brakes | disk        |
+|                 2 | Cars   | Seat Cover  |
+|                 4 | Misc   | tyre        |
+|                 3 | Others | wheels      |
+|                 5 | Wheels | 123         |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> order by accessories desc;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 2 | Cars   | Seat Cover  |
+|                 1 | Bikes  | Gloves      |
+|                 6 | Brakes | disk        |
+|                 5 | Wheels | 123         |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> order by name,accessories desc;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 6 | Brakes | disk        |
+|                 2 | Cars   | Seat Cover  |
+|                 4 | Misc   | tyre        |
+|                 3 | Others | wheels      |
+|                 5 | Wheels | 123         |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select name,accessories from productcategory
+    -> order by 2;
++--------+-------------+
+| name   | accessories |
++--------+-------------+
+| Wheels | 123         |
+| Brakes | disk        |
+| Bikes  | Gloves      |
+| Cars   | Seat Cover  |
+| Misc   | tyre        |
+| Others | wheels      |
++--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select name,accessories from productcategory
+    -> order by 2
+    -> limit 3;
++--------+-------------+
+| name   | accessories |
++--------+-------------+
+| Wheels | 123         |
+| Brakes | disk        |
+| Bikes  | Gloves      |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,accessories from productcategory
+    -> order by 2
+    -> limit 2,3;
++-------+-------------+
+| name  | accessories |
++-------+-------------+
+| Bikes | Gloves      |
+| Cars  | Seat Cover  |
+| Misc  | tyre        |
++-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql>
