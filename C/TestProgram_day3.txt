@@ -1,0 +1,748 @@
+//Print all special number between 1 to 200000
+
+# include<stdio.h>
+int special(int);
+int main(){
+	int temp,i;
+	printf("Special numbers are:\n");
+	
+	for(i=1;i<=200000;i++)
+	{
+		temp = special(i);
+		if(temp)
+		printf("%d\n",i);
+	}
+
+	getch();
+	return 0;
+}
+
+int special(int n)
+{
+	int num,r,s=0;
+	num=n;
+	while(n!=0)
+	{
+		r=n%10;
+		s=s+fact(r);
+		n=n/10;
+	}
+
+	if(num == s)
+		return 1;
+	
+	return 0;
+}
+
+
+//3 digit armstrong number
+
+# include<stdio.h>
+int armstrong(int);
+int main(){
+	int temp,i;
+	printf(" 3 digit armstrong number are:\n");
+	
+	for(i=100;i<1000;i++)
+	{
+		temp = armstrong(i);
+		if(temp)
+		printf("%d\n",i);
+	}
+
+	getch();
+	return 0;
+}
+
+int armstrong(int n)
+{int s,r,sum=0;
+s=n;
+	while(s!=0)
+	{
+		r=s%10;
+		sum=sum+cube(r);
+		s=s/10;
+	}
+	if(n==sum)
+		return 1;
+	return 0;
+}
+
+
+//Table Calculator
+
+# include<stdio.h>
+
+int main(){
+	int n,i,no,ans;
+	printf(" Enter a number:\n");
+	scanf("%d",&n);
+	
+	for(no=1;no<=10;no++)
+	{
+		for(i=1;i<=n;i++)
+		{
+			ans=no*i;
+			printf("\t %d * %d = %d",i,no,ans);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//1
+//12
+//123
+
+# include<stdio.h>
+
+int main(){
+	int i,j;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(j=1;j<=i;j++)
+		{
+			
+			printf("%d",j);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//1
+//22
+//333
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(j=1;j<=i;j++)
+		{
+			
+			printf("%d",i);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+
+//Pattern
+//  1
+// 12
+//123
+
+
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=i;s<3;s++)
+			printf(" ");
+		for(j=1;j<=i;j++)
+		{
+			
+			printf("%d",j);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//  1
+// 2 2
+//3 3 3
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=i;s<3;s++)
+			printf(" ");
+		for(j=1;j<=i;j++)
+		{
+			
+			printf("%d ",i);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//1
+//23
+//456
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1;
+		
+	for(i=1;i<=3;i++)
+	{
+		/*for(s=i;s<3;s++)
+			printf(" ");*/
+		for(j=1;j<=i;j++)
+		{
+			
+			printf("%d",s++);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//1
+//21
+//321
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1;
+		
+	for(i=1;i<=3;i++)
+	{
+		/*for(s=i;s<3;s++)
+			printf(" ");*/
+		for(j=i;j>=1;j--)
+		{
+			
+			printf("%d",j);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//  1
+// 121
+//12321
+
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1,r;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=i;s<3;s++)
+			printf(" ");
+		for(j=1;j<=i;j++)
+			printf("%d",j);
+
+		for(r=i-1;r>=1 ;r--)
+			printf("%d",r);
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//  1
+// 121
+//12321
+// 121
+//  1
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1,r,l,q,p,w;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=i;s<3;s++)
+			printf(" ");
+		for(j=1;j<=i;j++)
+			printf("%d",j);
+
+		for(r=i-1;r>=1 ;r--)
+			printf("%d",r);
+
+		printf("\n");
+	}
+
+	for(l=2;l>=1;l--)
+	{
+	for(q=l;q<3;q++)
+		printf(" ");
+	for(p=1;p<=l;p++)
+		printf("%d",p);
+
+
+	for(w=l-1;w>=1;w--)
+		printf("%d",w);
+	printf("\n");
+	}
+
+	
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//32123
+// 323
+//  3
+//
+
+
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1,r,l,q,p,w;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=3;s<=i+1;s++)
+			printf(" ");
+		for(j=3;j>=i;j--)
+			printf("%d",j);
+
+		for(r=i+1;r<=3;r++)
+			printf("%d",r);
+
+		printf("\n");
+	}
+
+
+
+	
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//  1
+// 222
+//33333
+
+
+
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,k=1,s;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=i;s<3;s++)
+			printf(" ");
+		for(j=1;j<=k;j++)
+			printf("%d",i);
+		k=k+2;
+		
+
+		printf("\n");
+	}
+
+
+
+	
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//  0
+// 101
+//21012
+
+# include<stdio.h>
+
+int main(){
+	int i,j,k=1,s,r;
+		
+	for(i=0;i<=2;i++)
+	{
+		for(s=i;s<2;s++)
+			printf(" ");
+		for(j=i;j>=0;j--)
+			printf("%d",j);
+		
+		for(r=1;r<=i;r++)
+			printf("%d",r);
+
+		printf("\n");
+	}
+	getch();
+	return 0;
+}
+
+
+
+//Pattern
+//zyxyz
+// zyz
+//  z
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1,r,l,q,p,w;
+	
+		
+	for(i='x';i<='z';i++)
+	{
+		for(s='z';s<=i+1;s++)
+			printf(" ");
+		for(j='z';j>=i;j--)
+			printf("%c",j);
+
+		for(r=i+1;r<='z';r++)
+			printf("%c",r);
+
+		printf("\n");
+	}
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//a
+//ab
+//abc
+
+# include<stdio.h>
+
+int main(){
+	int i,j;
+		
+	for(i='a';i<='c';i++)
+	{
+		for(j='a';j<=i;j++)
+		{
+			
+			printf("%c",j);
+
+		}
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+//Pattern
+//   *
+//  **
+// ***
+//****
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s;
+		
+	for(i=1;i<=4;i++)
+	{
+
+		for(s=i;s<4;s++)
+			printf(" ");
+		for(j=1;j<=i;j++)
+			printf("*");
+		printf("\n");
+	}
+
+	getch();
+	return 0;
+}
+
+
+
+//Pattern
+//  1
+// 121
+//12121
+
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,k=1,s;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(s=i;s<3;s++)
+			printf(" ");
+		for(j=1;j<=k;j++)
+			if (j%2==0)
+				printf("2");
+			else
+				printf("1");
+		k=k+2;
+		
+
+		printf("\n");
+	}
+
+
+
+	
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//321
+//32
+//3
+
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1,r,l,q,p,w;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(j=3;j>=i;j--)
+			printf("%d",j);
+
+
+		printf("\n");
+	}
+
+
+
+	
+	getch();
+	return 0;
+}
+
+
+//Pattern
+//1 1
+// 2
+//3 3
+
+
+# include<stdio.h>
+
+int main(){
+	int i,j,s=1,r,l,q,p,w;
+		
+	for(i=1;i<=3;i++)
+	{
+		for(j=1;j<=3;j++)
+		{
+		 if(i==j || j==4-i)
+
+			printf("%d",i);
+		 else
+			 printf(" ");
+
+		}
+
+		printf("\n");
+	}
+		
+	getch();
+	return 0;
+}
+
+
+//Write program to print following pictures.
+//ABCDEFGHIJKLMNOPQRST
+//ACEGIKMOQS
+//ADGJMPS
+//AEIMO
+
+# include<stdio.h>
+
+int main(){
+	int i,j,c;
+	 for (i='A';i<='T';i++)
+		 printf("%c",i);
+		printf("\n");
+	 for (j='A';j<='T';j=j+2)
+		 printf("%c",j);
+		printf("\n");
+	 for (j='A';j<='T';j=j+3)
+		 printf("%c",j);
+		printf("\n");
+	 for (j='A';j<='T';j=j+4)
+		 printf("%c",j);
+		printf("\n");
+			
+	getch();
+	return 0;
+}
+
+
+//Accept a number from user and check if it is prime number or not
+
+#include <stdio.h>
+
+int main()
+{
+	int n,i,isprime=1;
+		printf("Enter a number");
+		scanf("%d",&n);
+		if(n==1)
+			printf("1 is neither prime nor composite no");
+		else
+		{
+		for (i=2;i<n;i++)
+		{
+			if(n%i==0)
+				isprime=0;
+				break;	
+		}
+
+		if(isprime)
+			printf("Prime number");
+		else
+			printf("NOT prime number");
+		}
+		getch();
+		return 0;
+}
+
+
+//Accept two number from user and find HCF and lcm
+
+#include <stdio.h>
+
+int main()
+{
+	int n1,n2,i,gcd=1,lcm;
+		printf("Enter 2 numbers");
+		scanf("%d%d",&n1,&n2);
+		for (i=2;i<=n1 && i<=n2;i++)
+		{
+			if(n1%i==0 && n2%i==0)
+				gcd=i;
+		}
+		lcm=(n1*n2)/gcd;
+		
+		printf("%d\n",gcd);
+		printf("%d",lcm);
+		getch();
+		return 0;
+}
+
+
+//// Q7.Write a program to generate the following figure using loop construct
+//ABCDEBCDECDEDEE
+//ABCDEBCDECDEDE
+//ABCDEBCDECDE
+//ABCDEBCDE
+//ABCDE
+
+#include <stdio.h>
+
+int main()
+{
+	int j,i,k;
+		for(j=0;j<=4;j++)
+		{
+
+			for (i='A';i<='E'-j;i++)
+			{
+			for (k=i;k<='E';k++)
+				printf("%c",k);
+			}
+
+		printf("\n");
+		}
+		getch();
+		return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,469 @@
+//Q1.Give choice to user
+//a. square
+//b. Cube
+//c. exit
+//as per user choice display result if user enter invalid choice give appropriate
+//message.
+//Q2. Do the same example above but you program should not exit unless user enter
+//choice “c”
+
+
+#include <stdio.h>
+int main()
+{
+	int choice,n;
+	while(1)
+	{
+	printf("Enter your choice\n");
+	printf("1. Square\n");
+	printf("2. Cube\n");
+	printf("3. Exit\n");
+	scanf("%d",&choice);
+	
+	
+	
+	switch(choice)
+	{
+	case (1):
+		printf("Enter number--");
+		scanf("%d",&n);
+		printf("Square=%d\n",(n*n));
+
+		break;
+	case (2):
+		printf("Enter number--");
+		scanf("%d",&n);
+		printf("Cube = %d\n",(n*n*n));
+		break;
+	case (3):
+		exit(0);
+	default:
+		printf("INvalid Entry\n");
+	}
+
+	}
+	getch();
+	return 0;
+}
+
+
+
+
+
+//Q3.Accept date month and year from user and print date in formatedd-mmm-yyyy
+//a. Eg. Input 12/3/2012 o/p 12 january 2012
+
+
+
+#include <stdio.h>
+int main()
+{
+	int choice,n,d,m,y;
+	while(1)
+	{
+	printf("Enter Date Month and Year\n");
+	scanf("%d/%d/%d",&d,&m,&y);
+	
+	
+	
+	switch(m)
+	{
+	case (1):
+		printf("%d January %d",d,y);
+		break;
+	case (2):
+		printf("%d February %d",d,y);
+		break;
+	case (3):
+		printf("%d March %d",d,y);
+		break;
+	case (4):
+		printf("%d April %d",d,y);
+		break;
+	case (5):
+		printf("%d May %d",d,y);
+		break;
+	case (6):
+		printf("%d June %d",d,y);
+		break;
+	case (7):
+		printf("%d July %d",d,y);
+		break;
+	case (8):
+		printf("%d August %d",d,y);
+		break;
+	case (9):
+		printf("%d September %d",d,y);
+		break;
+	case (10):
+		printf("%d OCtober %d",d,y);
+		break;
+	case (11):
+		printf("%d November %d",d,y);
+		break;
+	case (12):
+		printf("%d December %d",d,y);
+		break;
+	default:
+		printf("Invalid month Entered");
+		getch();
+		exit(0);
+	}
+
+	}
+	getch();
+	return 0;
+}
+
+//Q4.give choice to user
+//1.+
+//2.*
+//3./
+//4. exit
+//as per user choice display result if user enter invalid choice give appropriate
+//message.
+
+
+
+#include <stdio.h>
+int main()
+{
+	int choice,n,m;
+	while(1)
+	{
+	printf("Enter your choice\n");
+	printf("1. +\n");
+	printf("2. *\n");
+	printf("3. /\n");
+	printf("4. Exit\n");
+	scanf("%d",&choice);
+	
+	
+	
+	
+	switch(choice)
+	{
+	case (1):
+		printf("Enter  2 number--");
+		scanf("%d%d",&n,&m);
+		printf("%d + %d = %d",n,m,(n+m));
+		break;
+	case (2):
+		printf("Enter  2 number--");
+		scanf("%d%d",&n,&m);
+		printf("%d * %d = %d",n,m,(n*m));
+		break;
+	case (3):
+		printf("Enter  2 number--");
+		scanf("%d%d",&n,&m);
+		printf("%d / %d = %d",n,m,(n/m));
+		break;
+	case (4):
+		exit(0);
+		break;
+	default:
+		printf("Invalid month Entered");
+		getch();
+		
+	}
+
+	}
+	getch();
+	return 0;
+}
+
+
+
+#include <stdio.h>
+
+int fact(int);
+int main()
+{
+	int c,f;
+	printf("Enter a number to find factorial--\n");
+	scanf("%d",&c);
+	f=fact(c);
+	printf("Factorial of %d is = %d",c,f);
+	getch();
+	return 0;
+}
+int fact(int c)
+{ 
+	int f;
+	if(c==1 || c==0)
+		return 1; 
+	else
+	{
+	f=c*fact(c-1);
+	return f;
+	}
+
+}
+
+//Q1.Find factorial of a number#include <stdio.h>
+
+int fact(int);
+int main()
+{
+	int c,f;
+	printf("Enter a number to find factorial--\n");
+	scanf("%d",&c);
+	f=fact(c);
+	printf("Factorial of %d is = %d",c,f);
+	getch();
+	return 0;
+}
+int fact(int c)
+{ 
+	int f;
+	if(c==1 || c==0)
+		return 1; 
+	else
+	{
+	f=c*fact(c-1);
+	return f;
+	}
+
+}
+
+
+
+//Q2.Find binary of a number
+#include <stdio.h>
+void binary(int);
+int fact(int);
+int main()
+{
+	int c,f;
+	printf("Enter a number to find Binary of it--\n");
+	scanf("%d",&c);
+	binary(c);
+	
+	getch();
+	return 0;
+}
+void binary(int c)
+{ 
+	int bin;
+	if(c<=0)
+		return ; 
+	bin =c%2;
+	binary(c/2);
+	printf("%d",bin);
+}
+
+//Q2..Find Fibonacci series
+#include <stdio.h>
+void Fibonacci(int);
+int fact(int);
+int main()
+{
+	int c,f,n;
+	printf("Enter a number of terms to be printed--\n");
+	scanf("%d",&n);
+
+	if(n==0)
+		printf("Invalid choice");
+	else if(n==1)
+		printf("0");
+	else if(n==2)
+		printf("0\t 1\t");
+	else
+		{
+			printf("0\t 1\t");
+			Fibonacci(n);
+		}
+	
+	getch();
+	return 0;
+}
+void Fibonacci(int n)
+{ 
+	static int a=0,b=1;
+	int c;
+	c=a+b;
+	printf("%d\t",c);
+	a=b;
+	b=c;
+	n--;
+		if(n>2)
+			Fibonacci(n);
+	
+	
+}
+
+
+#include <stdio.h>
+ 
+int hcf(int, int);
+ 
+int main()
+{
+    int a, b, result;
+ 
+    printf("Enter the two numbers to find their HCF: ");
+    scanf("%d%d", &a, &b);
+    result = hcf(a, b);
+    printf("The HCF of %d and %d is %d.\n", a, b, result);
+}
+ 
+int hcf(int a, int b)
+{
+    while (a != b)
+    {
+        if (a > b)
+        {
+            return hcf(a - b, b);
+        }
+        else
+        {
+            return hcf(a, b - a);
+        }
+    }
+    return a;
+}
+
+//Q2..Find HCF
+#include <stdio.h> 
+  
+
+int gcd(int a, int b) 
+{ 
+      
+    if (a == 0) 
+       return b; 
+    if (b == 0) 
+       return a;
+    if (a == b) 
+        return a; 
+    if (a > b) 
+        return gcd(a-b, b); 
+    return gcd(a, b-a); 
+} 
+  
+int main() 
+{ 
+    int a = 98, b = 56; 
+    printf("GCD of %d and %d is %d ", a, b, gcd(a, b)); 
+    return 0; 
+}
+
+
+//Q5.Accept a number from user and do sum of digit
+
+#include <stdio.h> 
+int sum(int);
+int main() 
+{ 
+    int a,Z;
+	printf("Enter a number-");
+	scanf("%d",&a);
+	Z=sum(a);
+	printf("SUM=%d",Z);
+	getch();
+	return 0;
+}
+
+int sum(int n)
+{
+	int r,f;
+	if(n==0)
+		return 0;
+	else
+		r=n%10;
+		f=r+sum(n/10);
+		return f;
+
+}
+   
+
+
+
+#include <stdio.h> 
+int sum(int);
+int main() 
+{ 
+    int a[5],start,no,i;
+	printf("Enter 5 numbers-");
+	for(i=0;i<5;i++)
+	{
+	scanf("%d",&a[i]);
+	}
+	printf("Enter start index and number of elements-");
+	scanf("%d %d",&start,&no);
+
+	if (start>4)
+		printf("invalid entry");
+	else
+	{
+		if(no>5-start)
+			printf("It exceeds array index");
+		
+			else
+		{
+			for(i=start;();i++)
+			printf("%d",a[i]);
+		}
+	}
+	getch();
+	return 0;
+}
+
+
+//Q5.Accept 5 element in array and accept start index and number of elements to extract and print it????
+
+#include <stdio.h> 
+int sum(int);
+int main() 
+{ 
+    int a[5],start,no,i;
+	printf("Enter 5 numbers-");
+	for(i=0;i<5;i++)
+	{
+	scanf("%d",&a[i]);
+	}
+	printf("Enter start index and number of elements-");
+	scanf("%d %d",&start,&no);
+
+	if (start>4)
+		printf("invalid entry");
+	else if (no-start>6)
+		printf("invalid entry");
+	else
+		if(start+no<=5)
+		{
+		for(i=start;i<start+no;i++)
+			printf("%d",a[i]);
+		}
+		else 
+			printf("Invalid Entry");
+	getch();
+	return 0;
+}
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

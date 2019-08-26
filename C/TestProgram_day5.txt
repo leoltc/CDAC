@@ -1,0 +1,163 @@
+//Q1.Accept a name from user and reverse it and store into another string
+
+#include <stdio.h>
+#include<string.h>
+int main()
+{
+	char arr[10],cpy[10];
+	int i,j=0,s;
+
+	printf("Enter name\n");
+	gets(arr);
+	//amit
+	s= strlen(arr);
+	for(i=0;i<=s-1;i++)
+	{
+		cpy[j++]=arr[(s-1)-i];
+	}
+	cpy[i]='\0';
+	puts(cpy);
+	getch();
+	return 0;
+}
+
+
+//Q2.Accept a name from user and reverse it and store in same string
+
+#include <stdio.h>
+#include<string.h>
+int main()
+{
+	char arr[10],t;
+	int i,j=0,s;
+
+	printf("Enter name\n");
+	gets(arr);
+	//amit
+	s= strlen(arr);
+	for(i=0;i<=(s-1)/2;i++)
+	{
+		t=arr[i];
+		arr[i]=arr[(s-1)-i];
+		arr[(s-1)-i]=t;
+
+
+	}
+	arr[s]='\0';
+	puts(arr);
+	getch();
+	return 0;
+}
+
+
+//Q3.Accept 2 names and append to the first name
+
+#include <stdio.h>
+#include<string.h>
+int main()
+{
+	char arr1[20],arr2[10],t;
+	int i,j=0,s,p;
+
+	printf("Enter name\n");
+	gets(arr1);
+
+	printf("Enter name\n");
+	gets(arr2);
+	
+	
+	
+	s= strlen(arr1);
+	t= strlen(arr2);
+	p=s+t;
+	for(i=0;i<=p;i++)
+	{
+		
+		arr1[s+i]=arr2[i];
+	}
+	arr1[i]='\0';
+	puts(arr1);
+	getch();
+	return 0;
+}
+
+
+//Q4.Accept 2 strings and check if they are same or not
+
+#include <stdio.h>
+#include<string.h>
+int main()
+{
+	char arr1[20],arr2[10];
+	int i,s,flag=0,t;
+
+	printf("Enter name\n");
+	gets(arr1);
+
+	printf("Enter name\n");
+	gets(arr2);
+	
+	
+	
+	s= strlen(arr1);
+	t= strlen(arr2);
+	if(s!=t)
+		printf("The strings are not same");
+	else
+		{
+			for(i=0;i<s;i++)
+			{
+				if(arr1[i]!=arr2[i])
+					{
+						flag++;
+						break;
+				}
+			}
+			if(flag)
+				printf("The strings are not same");
+			else
+				printf("The strings are  same");
+		}
+	
+		
+	getch();
+	return 0;
+}
+
+
+//Accept a string and check if it is palindrome
+
+#include <stdio.h>
+#include<string.h>
+int main()
+{
+	char arr[10],cpy[10];
+	int i,j=0,s,flag=0;
+
+	printf("Enter name\n");
+	gets(arr);
+	//amit
+	s= strlen(arr);
+	for(i=0;i<=s-1;i++)
+	{
+		cpy[j++]=arr[(s-1)-i];
+	}
+	cpy[i]='\0';
+	puts(cpy);
+
+	for(i=0;i<=s;i++)
+	{
+		if(arr[i]!=cpy[i])
+			{
+				flag=1;
+				break;
+		}
+	}
+	if(flag)
+		printf("It is not a palindrome");
+	else
+		printf("It is palindrome");
+	getch();
+	return 0;
+}
+

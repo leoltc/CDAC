@@ -1,0 +1,341 @@
+c:\users\vita1\documents\visual studio 2012\Projects
+//swap 2 variable without 3rd variable
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int a,b;
+	printf("Enter 2 nos\n");
+	scanf("%d%d",&a,&b);
+	printf("Before swapping a=%d b=%d \n",a,b);
+	a=a+b;
+	b=a-b;
+	a=a-b;
+
+	printf("After swapping a=%d b=%d",a,b);
+	getch();
+	return 0;
+
+}
+
+//solution 2
+#include<stdio.h>
+int main(){
+	int a,b;
+	printf("Enter 2 nos\n");
+	scanf("%d%d",&a,&b);
+	printf("Before swapping a=%d b=%d \n",a,b);
+	a=a^b;
+	b=a^b;
+	a=a^b;
+
+	printf("After swapping a=%d b=%d",a,b);
+	getch();
+	return 0;
+
+}
+
+
+//solution 3
+#include<stdio.h>
+int main(){
+	int a,b;
+	printf("Enter 2 nos\n");
+	scanf("%d%d",&a,&b);
+	printf("Before swapping a=%d b=%d \n",a,b);
+	a=a*b;
+	b=a/b;
+	a=a/b;
+
+	printf("After swapping a=%d b=%d",a,b);
+	getch();
+	return 0;
+
+}
+
+
+//Find the highest number from the three numbers
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int a,b,c;
+	printf("Enter 3 nos\n");
+	scanf("%d%d%d",&a,&b,&c);
+	if (a>b)
+		b=a;
+	if (c>b)
+		b=c;
+	printf("The highest number is =%d",b);
+	getch();
+	return 0;
+
+}
+
+
+//Find if the year is leap year or not
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int a;
+	printf("Enter a year\n");
+	scanf("%d",&a);
+	if(a%4==0 && a%100!=0 || a%400==0)
+	printf("The year is a leap year");
+	else
+	printf("The year is not a leap year");
+	getch();
+	return 0;
+
+}
+
+
+//Reverse the case of a character
+
+//solution 1
+#include<stdio.h>
+int main(){
+	char c;
+	printf("Enter a character\n");
+	c= getche();
+	
+	//scanf("%c",&c);
+	if(c>=65 && c<=90)
+		c=c+32;
+	
+	else if(c>=97 && c<=122)
+		c =c-32;
+	else
+		printf("Invalid character");
+
+	printf("\nThe reverse case of the character entered is - %c",c);
+	getch();
+	return 0;
+
+}
+
+
+//Find whether the character is a vowel or not
+
+//solution 1
+#include<stdio.h>
+int main(){
+	char c;
+	printf("Enter a character\n");
+	c= getche();
+	
+	//scanf("%c",&c);
+	if(c=='A' || c=='a' || c=='E' || c=='e' || c=='I' || c=='i' || c=='O' || c=='o' || c=='U' || c=='u')
+		printf("\nThe character entered is a vowel");
+	else
+		printf("\nIt is consonant");
+	
+
+	getch();
+	return 0;
+
+}
+
+//Grading system
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int mk;
+	printf("Enter marks--\n");
+	scanf("%d",&mk);
+	
+	if(mk>=75)
+		printf("\nGrade A");
+	else if(mk>=55)
+		printf("\nGrade B");
+	else if(mk>=35)
+		printf("\nGrade C");
+	else
+		printf("Fail");
+	
+
+	getch();
+	return 0;
+
+}
+
+
+//Divisibility of 3 and 7
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int m;
+	printf("Enter a number--\n");
+	scanf("%d",&m);
+	if(m%3==0 && m%7==0)
+		printf("three-seven");
+	else if(m%3==0)
+		printf("three");
+	else if(m%7==0)
+		printf("seven");
+		
+	getch();
+	return 0;
+
+}
+
+
+//Electric power consumption
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int unit,charge;
+	printf("Enter units consumed\n");
+	scanf("%d",&unit);
+
+	if(unit<=200)
+		charge=0.5*unit;
+
+	else if(unit<=400)
+		charge=100+0.65*(unit-200);
+	else if(unit <=600)
+		charge=230+0.80*(unit-400);
+	else if(unit>600)
+		charge=390+1*(unit-600);	
+	printf("Total amount for consumed units %d is %d",unit,charge);
+	getch();
+	return 0;
+
+}
+
+
+//Find whether a number is odd or even
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int num,q;
+	printf("Enter a number\n");
+	scanf("%d",&num);
+	
+	if((num&1)==0)
+		printf("Even number");
+	else
+		printf("Odd number");
+
+	getch();
+	return 0;
+
+}
+
+
+//Calculate net salary
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int sal;
+	float tax;
+	char sex;
+	printf("Enter sex(m/f) and salary\n");
+	scanf("%c %d",&sex,&sal);
+
+	if(sex=='m'){
+		if(sal>8000)
+			tax=0.05*sal;
+		else
+			tax=0.02*sal;
+	}
+	else if(sex=='f'){
+		if(sal==5000)
+			tax=0.03*sal;
+		else
+			tax=0.01*sal;
+	}
+	printf("Net salary is %f",sal-tax);
+
+	getch();
+	return 0;
+
+}
+
+
+//Calculate sum of 3 digit number
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int num,sum=0,n;
+	
+	printf("Enter a 3 digit number\n");
+	scanf("%d",&num);
+
+	n=num%10;
+	sum = sum + n;
+	num=num/10;
+
+	n=num%10;
+	sum = sum + n;
+	num=num/10;
+
+	n=num%10;
+	sum = sum + n;
+	num=num/10;
+
+	printf("Net salary is %d",sum);
+
+	getch();
+	return 0;
+
+}
+
+
+//Calculate net salary
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int p,n;
+	float SI,r;
+	printf("Enter principal,number of years,rate of interest\n");
+	scanf("%d %d %f",&p,&n,&r);
+
+	SI=(p*n*r)/100;
+	printf("Simple Interest  %f",SI);
+
+	getch();
+	return 0;
+
+}
+
+
+//Check for polygon
+
+//solution 1
+#include<stdio.h>
+int main(){
+	int p,n,t,y;
+	
+	printf("Enter four sides of a polygon\n");
+	scanf("%d %d %d %d",&p,&n,&t,&y);
+	if (p<(n+t+y) && n<(p+t+y) && t<(p+n+y))
+	{
+		printf("Polygon status is 1\n");
+
+		if(p==n && t==y)
+		{
+			printf("Square status 1\n");
+		}
+		else
+			printf("Square status 0\n");
+
+	}
+	else{
+	printf("Polygon status is 0\n");
+	printf("Square status 0\n");
+	}
+
+	getch();
+	return 0;
+
+}
+
