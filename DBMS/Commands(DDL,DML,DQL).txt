@@ -1,0 +1,192 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| acts               |
+| adventureworks     |
+| chai               |
+| db3                |
+| e1details          |
+| emart              |
+| employee           |
+| mydata             |
+| mydb               |
+| mydemodata         |
+| mysql              |
+| nikhildata         |
+| org                |
+| rahul1             |
+| sahil              |
+| test               |
+| vita_db            |
++--------------------+
+18 rows in set (1.56 sec)
+
+mysql> use adventureworks;
+Database changed
+
+mysql> select * from adventureworks;
+ERROR 1146 (42S02): Table 'adventureworks.adventureworks' doesn't exist
+
+mysql> select * from productcategory;
+Empty set (0.08 sec)
+
+mysql> insert into productcategory
+    -> values(1,"Bikes");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from productcategory;
++-------------------+-------+
+| productcategoryid | name  |
++-------------------+-------+
+|                 1 | Bikes |
++-------------------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into productcategory
+    -> values(2,"Cars");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into productcategory
+    -> values(2,"Cars");
+ERROR 1062 (23000): Duplicate entry '2' for key 'PRIMARY'
+
+mysql> insert into productcategory
+    -> values(3,"Others");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into productcategory
+    -> values(4,"Misc");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> update productcategory
+    -> set name="miscellaneous"
+    -> where productcategoryid =4;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from productcategory;
++-------------------+---------------+
+| productcategoryid | name          |
++-------------------+---------------+
+|                 1 | Bikes         |
+|                 2 | Cars          |
+|                 3 | Others        |
+|                 4 | miscellaneous |
++-------------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from productcategory
+    -> where productcategoryid=3;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from productcategory;
++-------------------+---------------+
+| productcategoryid | name          |
++-------------------+---------------+
+|                 1 | Bikes         |
+|                 2 | Cars          |
+|                 4 | miscellaneous |
++-------------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into productcategory
+    -> values(3,"Others");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> drop table productcategory;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from productcategory;
+ERROR 1146 (42S02): Table 'adventureworks.productcategory' doesn't exist
+
+mysql> Create table productcategory
+    -> (productcategoryid int primary key, name varchar(20));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from productcategory;
+Empty set (0.00 sec)
+
+mysql> insert into productcategory
+    -> values(1,"Bikes");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into productcategory
+    -> values(2,"Cars");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into productcategory
+    -> values(3,"Others");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into productcategory
+    -> values(4,"Misc");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+
+| productcategoryid | name   |
++-------------------+--------+
+|                 1 | Bikes  |
+|                 2 | Cars   |
+|                 3 | Others |
+|                 4 | Misc   |
++-------------------+--------+
+4 rows in set (0.02 sec)
+
+mysql> truncate table productcategory;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from productcategory;
+Empty set (0.00 sec)
+
+mysql> insert into productcategory
+    -> values(1,"Bikes");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into productcategory
+    -> values(2,"Cars");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into productcategory
+    -> values(3,"Others");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into productcategory
+    -> values(4,"Misc");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+
+| productcategoryid | name   |
++-------------------+--------+
+|                 1 | Bikes  |
+|                 2 | Cars   |
+|                 3 | Others |
+|                 4 | Misc   |
++-------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table productcategory
+    -> add column Accessories varchar(20);
+Query OK, 4 rows affected (0.23 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | NULL        |
+|                 2 | Cars   | NULL        |
+|                 3 | Others | NULL        |
+|                 4 | Misc   | NULL        |
++-------------------+--------+-------------+
+4 rows in set (0.00 sec)
