@@ -1,0 +1,164 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use adventureworks
+Database changed
+mysql> create table demo1
+    -> ( id1 int primarykey auto_increment,
+    -> name varchar(20) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primarykey auto_increment,
+name varchar(20) )' at line 2
+mysql> create table demo1
+    -> ( id1 int primarykey auto_increment,
+    -> ( id1 int primarykey auto_increment,;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primarykey auto_increment,
+( id1 int primarykey auto_increment,' at line 2
+mysql> create table demo1
+    -> ( id1 int primary key auto_increment,
+    -> name varchar(20) );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> create table demo2
+    -> ( id2 int primary key auto_increment,
+    -> name2 varchar(20) );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table final
+    -> {
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '{' at line 2
+mysql> create table final
+    -> (
+    -> id3 int primary key auto_increment,
+    -> name3 varchar(20),
+    -> lid int , mid int,
+    -> constraint name_lid
+    -> foreign key(lid)
+    -> references demo1(id1)
+    -> references demo2(id2)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references demo2(id2)
+)' at line 9
+mysql> select * from member
+    -> :
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 2
+mysql> select * from member;
++----------+-------+-------+-------+------------+-------------------+------------+----------+
+| Memberid | Fname | Mname | Lname | Mem_DOJ    | Email             | Phone      | Mem_type |
++----------+-------+-------+-------+------------+-------------------+------------+----------+
+|        1 | janet | NULL  | king  | 2019-08-27 | jking@gmail.com   | 9768462675 | Gold     |
+|        2 | arun  | NULL  | kinh  | 2019-08-27 | jkkking@gmail.com | 816903975  | Silver   |
++----------+-------+-------+-------+------------+-------------------+------------+----------+
+2 rows in set (0.16 sec)
+
+mysql> alter table member
+    -> add constraint mem_12
+    -> unique(Email);
+Query OK, 2 rows affected (0.27 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++--------------------------+
+| Tables_in_adventureworks |
++--------------------------+
+| book                     |
+| book123                  |
+| date                     |
+| demo1                    |
+| demo2                    |
+| dt                       |
+| member                   |
+| numericals               |
+| productcategory          |
+| specdata                 |
++--------------------------+
+10 rows in set (0.27 sec)
+
+mysql> drop table book123,demo1,demo2;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> show tables;
++--------------------------+
+| Tables_in_adventureworks |
++--------------------------+
+| book                     |
+| date                     |
+| dt                       |
+| member                   |
+| numericals               |
+| productcategory          |
+| specdata                 |
++--------------------------+
+7 rows in set (0.01 sec)
+
+mysql> create table a(x int primary key);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table b(x int references a,y int primary key(x,y));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(x,y))' at line 1
+mysql> drop table a;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table t123(x int(5),y int(5),name varchar(10),primary key(x,y));
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> create table m123(x int(5),y int(5),name varchar(10) primary key,foreign key(x,y)references t123(x,y));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into t123 values(1,1,'ghth'),(1,2,'fg');
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into t123 values(1,1,'ghth');
+ERROR 1062 (23000): Duplicate entry '1-1' for key 'PRIMARY'
+mysql> insert into t123 values(2,1,'ghth');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into m123 values(4,1,'ghth');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`adventureworks`.`m123`, CONSTRAINT `m123_ibfk_1` FOREIGN KEY (`x`, `y`) REFERENCES `t123` (`x`, `y`))
+mysql> insert into m123 values(1,1,'ghth');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into m123 values(1,2,'ghth');
+ERROR 1062 (23000): Duplicate entry 'ghth' for key 'PRIMARY'
+mysql> insert into m123 values(1,2,'ghtrfet');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from m123;
++------+------+---------+
+| x    | y    | name    |
++------+------+---------+
+|    1 |    1 | ghth    |
+|    1 |    2 | ghtrfet |
++------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into m123 values(1,2,'ghtrfetdgt');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from m123;
++------+------+------------+
+| x    | y    | name       |
++------+------+------------+
+|    1 |    1 | ghth       |
+|    1 |    2 | ghtrfet    |
+|    1 |    2 | ghtrfetdgt |
++------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from t123;
++---+---+------+
+| x | y | name |
++---+---+------+
+| 1 | 1 | ghth |
+| 1 | 2 | fg   |
+| 2 | 1 | ghth |
++---+---+------+
+3 rows in set (0.00 sec)
+
+mysql>

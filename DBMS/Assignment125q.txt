@@ -1,0 +1,370 @@
+select * from productcategory
+where accessories=null;
+
+
+select * from dept;
+
+select * from employee;
+select * from location;
+
+
+ insert into employee(empid,fname,lname,deptid,mgrid,salary) values
+ (1001,'Steve','King',105,null,50000),
+ (1003,"Nancy", "Green",102,1001,35000),
+ (1002,"Neena","Kochhar",105,1003,40000),
+ (1004,"Andrew","Lusk",101,1002,30000),
+ (1006,"Andy","Hillman",105,1001,30000),
+ (1005,"Pamela","Davis",null,1002,14000),
+ (1007,"Rene","Lopez",105,1001,18000),
+ (1008,"Sue","Fisher",105,1001,11000),
+ (1009,"Tania","Rff",105,1000,10000);
+
+select dname,concat(fname," ",lname) as name,city,addr
+from dept d join location l
+on d.location_id=l.locid
+join employee e
+on D.deptid=e.deptid;
+
+select dname,concat(fname," ",lname) as name
+from dept d right outer join employee e
+on d.deptid=e.deptid;
+
+select concat(e.fname," ",e.lname) as empname,concat(mgr.fname," ",mgr.lname) as mgrname
+from employee e left join employee mgr
+on e.mgrid=mgr.empid;
+
+select concat(e.fname," ",e.lname) as empname
+from employee e
+where mgrid=(
+select e.mgrid
+from employee e
+where fname="Andrew"
+) and fname!="Andrew";
+
+
+select concat(e.fname," ",e.lname) as empname
+from employee e
+where salary=(
+select e.salary
+from employee e
+order by salary desc
+limit 1,1);
+
+select concat(main.fname," ",main.lname) as empname,deptid,salary
+from employee main
+where salary > (Select avg(salary) from employee
+where deptid = main.deptid);
+
+
+select concat(main.fname," ",main.lname) as empname,deptid,salary
+from employee main
+where salary > (Select avg(salary) from employee
+where deptid = main.deptid); 
+
+update employee
+ set deptid=102
+ where fname='tania';
+
+
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use adventureworks
+Database changed
+mysql> select concat(main.fname," ",main.lname) as empname,deptid,salary
+    -> from employee main
+    -> where salary > (Select avg(salary) from employee
+    -> where deptid = main.deptid);
++---------------+--------+----------+
+| empname       | deptid | salary   |
++---------------+--------+----------+
+| Steve King    |    105 | 50000.00 |
+| Neena Kochhar |    105 | 40000.00 |
+| Andy Hillman  |    105 | 30000.00 |
++---------------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |    105 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |    102 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |    101 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |    105 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |    105 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |    105 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |    105 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> update deptid=102
+    -> where fname="sue" or fname="tania";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'update deptid=102
+where fname="sue" or fname="tania"' at line 2
+mysql> alter table employee
+    -> update deptid=102
+    -> where fname="sue";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'update deptid=102
+where fname="sue"' at line 2
+mysql> alter table employee
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc employee;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| fname  | varchar(10)   | YES  |     | NULL    |       |
+| lname  | varchar(10)   | YES  |     | NULL    |       |
+| deptid | int(11)       | YES  |     | NULL    |       |
+| mgrid  | int(11)       | YES  |     | NULL    |       |
+| salary | decimal(10,2) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> update deptid
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> update employee
+    -> set deptid =102 and deptid=102
+    -> ;
+Query OK, 8 rows affected (0.05 sec)
+Rows matched: 9  Changed: 8  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |      0 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |      0 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |      1 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |      0 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |      0 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |      0 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |      0 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |      0 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set deptid=105
+    -> where fname='steve';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |      0 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |      1 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |      0 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |      0 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |      0 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |      0 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |      0 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employeeupdate employee
+    ->  set deptid=105
+    -> select
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee
+ set deptid=105
+select' at line 1
+mysql>
+mysql> update employee
+    ->  set deptid=102
+    ->  where fname='nancy';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+mysql> update employee
+    ->  set deptid=102
+    ->  where fname='andrew';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |      0 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |    102 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |    102 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |      0 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |      0 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |      0 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |      0 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> update employee
+    ->  set deptid=102
+    ->  where fname='neena';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |    102 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |    102 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |    102 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |      0 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |      0 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |      0 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |      0 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql> update employee
+    ->  set deptid=105
+    ->  where fname='andy';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |    102 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |    102 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |    102 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |    105 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |      0 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |      0 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |      0 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> update employee
+    ->  set deptid=105
+    ->  where fname='sue';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+mysql> update employee
+    ->  set deptid=102
+    ->  where fname='rene';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee
+    ->  set deptid=102
+    ->  where fname='tania';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |    102 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |    102 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |    102 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |    105 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |    102 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |    105 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |    102 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> select concat(main.fname," ",main.lname) as empname,deptid,salary
+    -> from employee main
+    -> where salary > (Select avg(salary) from employee
+    -> where deptid = main.deptid);
++---------------+--------+----------+
+| empname       | deptid | salary   |
++---------------+--------+----------+
+| Steve King    |    105 | 50000.00 |
+| Neena Kochhar |    102 | 40000.00 |
+| Nancy Green   |    102 | 35000.00 |
+| Andrew Lusk   |    102 | 30000.00 |
++---------------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> create table salesperson(snum int primary key,)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table salesperson(snum int primary key,
+    -> sname varchar(10) not null,
+    -> city varchar(20) not null,
+    -> comm decimal(2,2)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into salesperson values()
+    -> ;
+ERROR 1364 (HY000): Field 'snum' doesn't have a default value
+mysql> insert into salesperson values
+    -> (1001,"Peel","London",0.12),(1002,"Serres","San Jose",0.13),(1004,"Motika","London",0.11),(1007,"Rifkin","Barcelona",0.15),(1003,"AxelRod","New York",0.10),(1005,"Fran","London",0.26);
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesperson;
++------+---------+-----------+------+
+| snum | sname   | city      | comm |
++------+---------+-----------+------+
+| 1001 | Peel    | London    | 0.12 |
+| 1002 | Serres  | San Jose  | 0.13 |
+| 1003 | AxelRod | New York  | 0.10 |
+| 1004 | Motika  | London    | 0.11 |
+| 1005 | Fran    | London    | 0.26 |
+| 1007 | Rifkin  | Barcelona | 0.15 |
++------+---------+-----------+------+
+6 rows in set (0.00 sec)
+
+mysql> create table Customers(cnum int primary key,cname varchar(20),city varchar(20),rating int, snum int, foreign key(snum) references salesperson(snum));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into customers values(2001,"Hoffman","London",100,1001),(2002,"Giovanni","Rome",200,1003),(2003,"Liu","San Jose",200,1002),(2004,"Grass","Berlin",300,1002),(2006,"Clemens","London",100,1
+001),(2008,"Cisneros","San Jose",300,1007),(2007,"Pereira","Rome",100,1004);
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> create table Orders(Onum int primary key, amt decimal(6,2), Odate date,cnum int,snum int, foreign key(cnum) references Customers(cnum), foreign key(snum) references salesperson(snum));
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> insert into Orders values(3001,18.69,1995-03-10,2008,1007),(3003,767.19,1996-03-10,2001,1001);
+ERROR 1292 (22007): Incorrect date value: '1982' for column 'Odate' at row 1
+mysql> insert into Orders values(3001,18.69,'1995-03-10',2008,1007),(3003,767.19,'1996-03-10',2001,1001);
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into Orders values(3002,1900.10,'1995-03-10',2007,1004),(3005,5160.45,'1996-03-10',2003,1002),(3006,1098.16,"1996-03-10",2008,1007),(3009,1713.23,"1996-04-10",2002,1003),(3007,75.75,"199
+6-04-10",2002,1003),(3008,4723.00,"1996-05-10",2006,1001),(3010,1309.95,"1996-06-10",2004,1002),(3011,9891.88,"1996-06-10",2006,1001);
+Query OK, 8 rows affected (0.03 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql>
+
+

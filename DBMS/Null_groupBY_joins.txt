@@ -1,0 +1,935 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use adventureworks
+Database changed
+mysql> show tables;
++--------------------------+
+| Tables_in_adventureworks |
++--------------------------+
+| book                     |
+| date                     |
+| dt                       |
+| m123                     |
+| member                   |
+| numericals               |
+| productcategory          |
+| specdata                 |
+| t123                     |
++--------------------------+
+9 rows in set (1.09 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+6 rows in set (0.05 sec)
+
+mysql> select productcategoryid,name from productcategory where productcategoryid=2 AND productcategoryid=4;
+Empty set (0.00 sec)
+
+mysql> select productcategoryid,name from productcategory where productcategoryid=2;
++-------------------+------+
+| productcategoryid | name |
++-------------------+------+
+|                 2 | Cars |
++-------------------+------+
+1 row in set (0.00 sec)
+
+mysql> select productcategoryid,name from productcategory where (productcategoryid=2 AND productcategoryid=4);
+Empty set (0.00 sec)
+
+mysql> select productcategoryid,name from productcategory where (productcategoryid=2 or productcategoryid=4);
++-------------------+------+
+| productcategoryid | name |
++-------------------+------+
+|                 2 | Cars |
+|                 4 | Misc |
++-------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select productcategoryid,name from productcategory where productcategoryid in (2,4);
++-------------------+------+
+| productcategoryid | name |
++-------------------+------+
+|                 2 | Cars |
+|                 4 | Misc |
++-------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select productcategoryid,name from productcategory where productcategoryid not in (2,4);
++-------------------+--------+
+| productcategoryid | name   |
++-------------------+--------+
+|                 1 | Bikes  |
+|                 3 | Others |
+|                 5 | Wheels |
+|                 6 | Brakes |
++-------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into productcategory (name,accessories) values('tarun',null);
+ERROR 1364 (HY000): Field 'productcategoryid' doesn't have a default value
+mysql> describe productcategory;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| productcategoryid | int(11)     | NO   | PRI | NULL    |       |
+| name              | varchar(20) | YES  |     | NULL    |       |
+| Accessories       | varchar(20) | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table productcategory
+    -> auto_increment=1;
+Query OK, 6 rows affected (0.30 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * productcategory;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'productcategory' at line 1
+mysql> select * form productcategory;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form productcategory' at line 1
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into productcategory (name,accessories) values('tarun',null);
+ERROR 1364 (HY000): Field 'productcategoryid' doesn't have a default value
+mysql> insert into productcategory (productcategoryid,name,accessories) values(7,'tarun',null);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
+|                 7 | tarun  | NULL        |
++-------------------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> describe productcategory;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| productcategoryid | int(11)     | NO   | PRI | NULL    |       |
+| name              | varchar(20) | YES  |     | NULL    |       |
+| Accessories       | varchar(20) | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table productcategory
+    -> modify productcategoryid int auto_increment primary key;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> alter table productcategory
+    -> modify productcategoryid int auto_increment ;
+Query OK, 7 rows affected (0.30 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> describe productcategory;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| productcategoryid | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name              | varchar(20) | YES  |     | NULL    |                |
+| Accessories       | varchar(20) | YES  |     | NULL    |                |
++-------------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
+|                 7 | tarun  | NULL        |
++-------------------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into productcategory (name,accessories) values('leo',null);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from productcategory;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
+|                 7 | tarun  | NULL        |
+|                 8 | leo    | NULL        |
++-------------------+--------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> where accessories=null;
+Empty set (0.01 sec)
+
+mysql> select * from productcategory
+    -> where accessories is null;
++-------------------+-------+-------------+
+| productcategoryid | name  | Accessories |
++-------------------+-------+-------------+
+|                 7 | tarun | NULL        |
+|                 8 | leo   | NULL        |
++-------------------+-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> where accessories is not null;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> where accessories in ('gloves',null);
++-------------------+-------+-------------+
+| productcategoryid | name  | Accessories |
++-------------------+-------+-------------+
+|                 1 | Bikes | Gloves      |
++-------------------+-------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from productcategory
+    -> where accessories not in ('gloves',null,'wheels');
+Empty set (0.00 sec)
+
+mysql> select * from productcategory
+    -> where accessories between 'gloves' and '123' ;
+Empty set (0.02 sec)
+
+mysql> select * from productcategory
+    -> where productcategoryid between 2 and 6 ;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
++-------------------+--------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from productcategory
+    -> ;
++-------------------+--------+-------------+
+| productcategoryid | name   | Accessories |
++-------------------+--------+-------------+
+|                 1 | Bikes  | Gloves      |
+|                 2 | Cars   | Seat Cover  |
+|                 3 | Others | wheels      |
+|                 4 | Misc   | tyre        |
+|                 5 | Wheels | 123         |
+|                 6 | Brakes | disk        |
+|                 7 | tarun  | NULL        |
+|                 8 | leo    | NULL        |
++-------------------+--------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> from productcategory
+    -> where productcategoryid between 2 and 6
+    -> select *
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from productcategory
+where productcategoryid between 2 and 6
+select *' at line 1
+mysql> where productcategoryid between 2 and 6
+    -> from productcategory
+    -> select *;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where productcategoryid between 2 and 6
+from productcategory
+select *' at line 1
+mysql>
+
+
+mysql>
+mysql> create table location
+    -> (
+    -> locid int auto_increment primary key
+    -> city varchar(20)
+    -> addr varchar(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version fo
+addr varchar(20)
+)' at line 4
+mysql> create table location
+    -> (
+    -> locid int auto_increment primary key ,
+    -> city varchar(20),
+    -> addr varchar(20)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> create table dept
+    -> (
+    -> deptid int primary key,
+    -> dname varchar(20),
+    -> location id int foreign key references location(locid)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version fo
+
+)' at line 5
+mysql> create table dept
+    -> (
+    -> deptid int primary key,
+    -> dname varchar(20),
+    -> location_id int foreign key references location(locid)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version fo
+)' at line 5
+mysql> create table dept
+    -> (
+    -> deptid int primary key,
+    -> dname varchar(20),
+    -> location_id int ,foreign key(location_id) references location(locid)
+    -> );
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> insert into location (city,addr) values(mumbai,mbp);
+ERROR 1054 (42S22): Unknown column 'mumbai' in 'field list'
+mysql> insert into location (city,addr) values('mumbai',mbp);
+ERROR 1054 (42S22): Unknown column 'mbp' in 'field list'
+mysql> insert into location (city,addr) values('mumbai','mbp');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into location (city,addr) values('Banglore','itpl');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into location (city,addr) values('pune','hinjewadi');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into location (city,addr) values('gurgaon','dlf2');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into dept (deptid,dname,location_id) values(101,'sales','1');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into dept (deptid,dname,location_id) values(102,'HR','3');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into dept (deptid,dname,location_id) values(103,'Finance','2'),(104,'MKTG',3),(105,'ops',4),(106,'it',4);
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from location;
++-------+----------+-----------+
+| locid | city     | addr      |
++-------+----------+-----------+
+|     1 | mumbai   | mbp       |
+|     2 | Banglore | itpl      |
+|     3 | pune     | hinjewadi |
+|     4 | gurgaon  | dlf2      |
++-------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+---------+-------------+
+| deptid | dname   | location_id |
++--------+---------+-------------+
+|    101 | sales   |           1 |
+|    102 | HR      |           3 |
+|    103 | Finance |           2 |
+|    104 | MKTG    |           3 |
+|    105 | ops     |           4 |
+|    106 | it      |           4 |
++--------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select dname
+    -> from dept
+    -> groupby location_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version fo
+mysql> select dname
+    -> from dept
+    -> group by location_id;
++---------+
+| dname   |
++---------+
+| sales   |
+| Finance |
+| HR      |
+| ops     |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> desc dept;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptid      | int(11)     | NO   | PRI | NULL    |       |
+| dname       | varchar(20) | YES  |     | NULL    |       |
+| location_id | int(11)     | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select dname
+    -> from dept
+    -> group by deptid;
++---------+
+| dname   |
++---------+
+| sales   |
+| HR      |
+| Finance |
+| MKTG    |
+| ops     |
+| it      |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select dname
+    -> from dept
+    -> group by locid;
+ERROR 1054 (42S22): Unknown column 'locid' in 'group statement'
+mysql> select dname
+    -> from dept
+    -> group by location_id;
++---------+
+| dname   |
++---------+
+| sales   |
+| Finance |
+| HR      |
+| ops     |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select dname
+    -> ,location_id
+    -> from dept
+    -> group by location_id;
++---------+-------------+
+| dname   | location_id |
++---------+-------------+
+| sales   |           1 |
+| Finance |           2 |
+| HR      |           3 |
+| ops     |           4 |
++---------+-------------+
+4 rows in set (0.02 sec)
+
+mysql> select count(dname),location_id
+    -> from dept
+    -> group by location_id;
++--------------+-------------+
+| count(dname) | location_id |
++--------------+-------------+
+|            1 |           1 |
+|            1 |           2 |
+|            2 |           3 |
+|            2 |           4 |
++--------------+-------------+
+4 rows in set (0.03 sec)
+
+mysql> select count(dname),location_id,dname
+    -> from dept
+    -> group by location_id;
++--------------+-------------+---------+
+| count(dname) | location_id | dname   |
++--------------+-------------+---------+
+|            1 |           1 | sales   |
+|            1 |           2 | Finance |
+|            2 |           3 | HR      |
+|            2 |           4 | ops     |
++--------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select count(dname),location_id,dname
+    -> from dept
+    -> group by location_id;
++--------------+-------------+---------+
+| count(dname) | location_id | dname   |
++--------------+-------------+---------+
+|            1 |           1 | sales   |
+|            1 |           2 | Finance |
+|            2 |           3 | HR      |
+|            2 |           4 | ops     |
++--------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select count(dname),location_id,dname
+    -> from dept
+    -> group by location_id
+    -> having count(*)>1;
++--------------+-------------+-------+
+| count(dname) | location_id | dname |
++--------------+-------------+-------+
+|            2 |           3 | HR    |
+|            2 |           4 | ops   |
++--------------+-------------+-------+
+2 rows in set (0.02 sec)
+
+mysql> select count(dname),location_id,dname
+    -> ;
+ERROR 1054 (42S22): Unknown column 'dname' in 'field list'
+mysql> select count(deptid),location_id,dname
+    -> from dept
+    -> group by location_id;
++---------------+-------------+---------+
+| count(deptid) | location_id | dname   |
++---------------+-------------+---------+
+|             1 |           1 | sales   |
+|             1 |           2 | Finance |
+|             2 |           3 | HR      |
+|             2 |           4 | ops     |
++---------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select count(deptid),location_id,dname
+    -> from dept
+    -> group by location_id
+    -> having count(*)>1;
++---------------+-------------+-------+
+| count(deptid) | location_id | dname |
++---------------+-------------+-------+
+|             2 |           3 | HR    |
+|             2 |           4 | ops   |
++---------------+-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+Database changed
+mysql> show tables;
++--------------------------+
+| Tables_in_adventureworks |
++--------------------------+
+| book                     |
+| date                     |
+| dept                     |
+| dt                       |
+| location                 |
+| m123                     |
+| member                   |
+| numericals               |
+| productcategory          |
+| specdata                 |
+| t123                     |
++--------------------------+
+11 rows in set (0.20 sec)
+
+mysql> ^L;
+ERROR:
+No query specified
+
+mysql> select * from dept;
++--------+---------+-------------+
+| deptid | dname   | location_id |
++--------+---------+-------------+
+|    101 | sales   |           1 |
+|    102 | HR      |           3 |
+|    103 | Finance |           2 |
+|    104 | MKTG    |           3 |
+|    105 | ops     |           4 |
+|    106 | it      |           4 |
++--------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from location;
++-------+----------+-----------+
+| locid | city     | addr      |
++-------+----------+-----------+
+|     1 | mumbai   | mbp       |
+|     2 | Banglore | itpl      |
+|     3 | pune     | hinjewadi |
+|     4 | gurgaon  | dlf2      |
++-------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select dname,city
+    -> from dept,location;
++---------+----------+
+| dname   | city     |
++---------+----------+
+| sales   | mumbai   |
+| sales   | Banglore |
+| sales   | pune     |
+| sales   | gurgaon  |
+| HR      | mumbai   |
+| HR      | Banglore |
+| HR      | pune     |
+| HR      | gurgaon  |
+| Finance | mumbai   |
+| Finance | Banglore |
+| Finance | pune     |
+| Finance | gurgaon  |
+| MKTG    | mumbai   |
+| MKTG    | Banglore |
+| MKTG    | pune     |
+| MKTG    | gurgaon  |
+| ops     | mumbai   |
+| ops     | Banglore |
+| ops     | pune     |
+| ops     | gurgaon  |
+| it      | mumbai   |
+| it      | Banglore |
+| it      | pune     |
+| it      | gurgaon  |
++---------+----------+
+24 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+---------+-------------+
+| deptid | dname   | location_id |
++--------+---------+-------------+
+|    101 | sales   |           1 |
+|    102 | HR      |           3 |
+|    103 | Finance |           2 |
+|    104 | MKTG    |           3 |
+|    105 | ops     |           4 |
+|    106 | it      |           4 |
++--------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from location;
++-------+----------+-----------+
+| locid | city     | addr      |
++-------+----------+-----------+
+|     1 | mumbai   | mbp       |
+|     2 | Banglore | itpl      |
+|     3 | pune     | hinjewadi |
+|     4 | gurgaon  | dlf2      |
++-------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select dname,city,addr
+    -> from dept inner join location
+    -> on locid=location_id;
++---------+----------+-----------+
+| dname   | city     | addr      |
++---------+----------+-----------+
+| sales   | mumbai   | mbp       |
+| Finance | Banglore | itpl      |
+| HR      | pune     | hinjewadi |
+| MKTG    | pune     | hinjewadi |
+| ops     | gurgaon  | dlf2      |
+| it      | gurgaon  | dlf2      |
++---------+----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select dname,city,addr
+    -> from dept left outer join location
+    -> on locid=location_id;
++---------+----------+-----------+
+| dname   | city     | addr      |
++---------+----------+-----------+
+| sales   | mumbai   | mbp       |
+| HR      | pune     | hinjewadi |
+| Finance | Banglore | itpl      |
+| MKTG    | pune     | hinjewadi |
+| ops     | gurgaon  | dlf2      |
+| it      | gurgaon  | dlf2      |
++---------+----------+-----------+
+6 rows in set (0.02 sec)
+
+mysql> select dname,city,addr
+    -> from dept right join location
+    -> on locid=location_id;
++---------+----------+-----------+
+| dname   | city     | addr      |
++---------+----------+-----------+
+| sales   | mumbai   | mbp       |
+| Finance | Banglore | itpl      |
+| HR      | pune     | hinjewadi |
+| MKTG    | pune     | hinjewadi |
+| ops     | gurgaon  | dlf2      |
+| it      | gurgaon  | dlf2      |
++---------+----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> insert into location
+    -> (city,addr) values ("kalyan",null);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select dname,city,addr
+    -> from dept right outer join location
+    -> on locid=location_id
+    -> where city is NULL;
+Empty set (0.00 sec)
+
+mysql> insert into dept(dname,location_id)
+    -> values("Mary",7);
+ERROR 1364 (HY000): Field 'deptid' doesn't have a default value
+mysql> desc dept
+    -> ;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptid      | int(11)     | NO   | PRI | NULL    |       |
+| dname       | varchar(20) | YES  |     | NULL    |       |
+| location_id | int(11)     | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into dept
+    -> values(8,"Mary",7);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`adventureworks`.`dept`, CONSTRAINT `dept_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`locid`))
+mysql> insert into dept
+    -> values(8,"Mary",3);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select dname,city,addr
+    -> from dept right outer join location
+    -> on locid=location_id
+    -> where city is NULL;
+Empty set (0.00 sec)
+
+mysql> insert into location
+    -> (city,addr) values(NULL,"mlk");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select dname,city,addr
+    -> from dept right outer join location
+    -> on locid=location_id
+    -> where city is NULL;
++-------+------+------+
+| dname | city | addr |
++-------+------+------+
+| NULL  | NULL | mlk  |
++-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> desc location;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| locid | int(11)     | NO   | PRI | NULL    | auto_increment |
+| city  | varchar(20) | YES  |     | NULL    |                |
+| addr  | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from location;
++-------+----------+-----------+
+| locid | city     | addr      |
++-------+----------+-----------+
+|     1 | mumbai   | mbp       |
+|     2 | Banglore | itpl      |
+|     3 | pune     | hinjewadi |
+|     4 | gurgaon  | dlf2      |
+|     5 | kalyan   | NULL      |
+|     6 | NULL     | mlk       |
++-------+----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> desc dept;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptid      | int(11)     | NO   | PRI | NULL    |       |
+| dname       | varchar(20) | YES  |     | NULL    |       |
+| location_id | int(11)     | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+---------+-------------+
+| deptid | dname   | location_id |
++--------+---------+-------------+
+|      8 | Mary    |           3 |
+|    101 | sales   |           1 |
+|    102 | HR      |           3 |
+|    103 | Finance |           2 |
+|    104 | MKTG    |           3 |
+|    105 | ops     |           4 |
+|    106 | it      |           4 |
++--------+---------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from dept
+    -> ;
++--------+---------+-------------+
+| deptid | dname   | location_id |
++--------+---------+-------------+
+|      8 | Mary    |           3 |
+|    101 | sales   |           1 |
+|    102 | HR      |           3 |
+|    103 | Finance |           2 |
+|    104 | MKTG    |           3 |
+|    105 | ops     |           4 |
+|    106 | it      |           4 |
++--------+---------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> delete * from dept
+    -> where deptid=8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from dept
+where deptid=8' at line 1
+mysql> delete from dept
+    -> where deptid=8;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from dept ;
++--------+---------+-------------+
+| deptid | dname   | location_id |
++--------+---------+-------------+
+|    101 | sales   |           1 |
+|    102 | HR      |           3 |
+|    103 | Finance |           2 |
+|    104 | MKTG    |           3 |
+|    105 | ops     |           4 |
+|    106 | it      |           4 |
++--------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into dept (deptid,dname,locationid) values (107,'Travel desk',null);
+ERROR 1054 (42S22): Unknown column 'locationid' in 'field list'
+mysql> insert into dept (deptid,dname,location_id) values (107,'Travel desk',null);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from dept ;
++--------+-------------+-------------+
+| deptid | dname       | location_id |
++--------+-------------+-------------+
+|    101 | sales       |           1 |
+|    102 | HR          |           3 |
+|    103 | Finance     |           2 |
+|    104 | MKTG        |           3 |
+|    105 | ops         |           4 |
+|    106 | it          |           4 |
+|    107 | Travel desk |        NULL |
++--------+-------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql>
+
+
+
+| ops   | Tania Rff     |
++-------+---------------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> select dname,concat(fname," ",lname) as name
+    -> from employee e join employee mgr
+    -> on e.mgrid=mgr.empid;
+ERROR 1054 (42S22): Unknown column 'dname' in 'field list'
+mysql> select concat(fname," ",lname) as name
+    -> from employee e join employee mgr
+    -> on e.mgrid=mgr.empid;
+ERROR 1052 (23000): Column 'fname' in field list is ambiguous
+mysql>
+mysql> select concat(e.fname," ",e.lname) as name
+    -> from employee e join employee mgr
+    -> on e.mgrid=mgr.empid;
++---------------+
+| name          |
++---------------+
+| Neena Kochhar |
+| Nancy Green   |
+| Andrew Lusk   |
+| Pamela Davis  |
+| Andy Hillman  |
+| Rene Lopez    |
+| Sue Fisher    |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+--------+---------+--------+-------+----------+
+| empid | fname  | lname   | deptid | mgrid | salary   |
++-------+--------+---------+--------+-------+----------+
+|  1001 | Steve  | King    |    105 |  NULL | 50000.00 |
+|  1002 | Neena  | Kochhar |    105 |  1003 | 40000.00 |
+|  1003 | Nancy  | Green   |    102 |  1001 | 35000.00 |
+|  1004 | Andrew | Lusk    |    101 |  1002 | 30000.00 |
+|  1005 | Pamela | Davis   |   NULL |  1002 | 14000.00 |
+|  1006 | Andy   | Hillman |    105 |  1001 | 30000.00 |
+|  1007 | Rene   | Lopez   |    105 |  1001 | 18000.00 |
+|  1008 | Sue    | Fisher  |    105 |  1001 | 11000.00 |
+|  1009 | Tania  | Rff     |    105 |  1000 | 10000.00 |
++-------+--------+---------+--------+-------+----------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> select concat(e.fname," ",e.lname) as empname,concat(mgr.fname," ",mgr.lname) as mgrname
+    -> from employee e join employee mgr
+    -> on e.mgrid=mgr.empid;
++---------------+---------------+
+| empname       | mgrname       |
++---------------+---------------+
+| Neena Kochhar | Nancy Green   |
+| Nancy Green   | Steve King    |
+| Andrew Lusk   | Neena Kochhar |
+| Pamela Davis  | Neena Kochhar |
+| Andy Hillman  | Steve King    |
+| Rene Lopez    | Steve King    |
+| Sue Fisher    | Steve King    |
++---------------+---------------+
+7 rows in set (0.00 sec)
+
+mysql>
+mysql> select concat(e.fname," ",e.lname) as empname,concat(mgr.fname," ",mgr.lname) as mgrname
+    -> from employee e left join employee mgr
+    -> on e.mgrid=mgr.empid;
++---------------+---------------+
+| empname       | mgrname       |
++---------------+---------------+
+| Steve King    | NULL          |
+| Neena Kochhar | Nancy Green   |
+| Nancy Green   | Steve King    |
+| Andrew Lusk   | Neena Kochhar |
+| Pamela Davis  | Neena Kochhar |
+| Andy Hillman  | Steve King    |
+| Rene Lopez    | Steve King    |
+| Sue Fisher    | Steve King    |
+| Tania Rff     | NULL          |
++---------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> select concat(e.fname," ",e.lname) as empname,concat(mgr.fname," ",mgr.lname) as mgrname
+    -> from employee e left join employee mgr
+    -> on e.mgrid=mgr.empid
+    -> where e.mgrid is NULL;
++------------+---------+
+| empname    | mgrname |
++------------+---------+
+| Steve King | NULL    |
++------------+---------+
+1 row in set (0.00 sec)
+
+select concat(main.fname," ",main.lname) as empname,deptid,salary
+from employee main
+where salary > (Select avg(salary) from employee
+where deptid = main.deptid);
