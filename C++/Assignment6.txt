@@ -1,0 +1,487 @@
+//1)
+//class base
+//{
+//	public:
+//		base(char *ptr)
+//		{
+//		}
+//};
+//class sub:public base
+//{
+//};
+//
+//Following statements should be possible
+//
+//sub s;
+//
+//sub *s1=new sub(40);
+//
+//sub *s2=new sub('a',4.5);
+
+
+#include<iostream>
+using namespace std;
+class base
+{
+	public:
+		base(char *ptr)
+		{
+
+		}
+};
+class sub:public base
+{
+	private:
+		int num;
+		char k;
+		double p;
+	public:
+		sub():base("mn"){
+			cout<<"In default"<<endl;
+		}
+
+		sub(int k):base("mn"){
+			num=k;
+			k=NULL;
+			p=NULL;
+		}
+
+		sub(char b,double d):base("mn"){
+			num=0;
+			k=b;
+			p=d;
+		}
+
+		void disp(){
+			cout<<num<<"\t"<<k<<"\t"<<p<<endl;
+		}
+
+};
+
+
+void main(){
+	sub s;
+
+	sub *s1=new sub(40);
+
+	sub *s2=new sub('a',4.5);
+	s.disp();
+	s1->disp();
+	s2->disp();
+}
+
+
+
+
+//2) 
+//class parent
+//{
+//	public:
+//		disp1()
+//		disp2()
+//		disp3()
+//		disp4()
+//};
+//class sub:private parent
+//{
+//	public:
+//		disp5()
+//};
+//
+//make sure u can do the following
+//
+//sub s(30);
+//s.disp5();
+//s.disp3();
+//s.disp1();
+
+
+#include<iostream>
+using namespace std;
+class parent
+{
+	public:
+		parent(){
+			cout<<"In default const of parent"<<endl;
+		}
+		void disp1(){
+			cout<<"parent disp 1"<<endl;
+		}
+		void disp2(){
+			cout<<"parent disp 2"<<endl;
+		}
+		void disp3(){
+			cout<<"parent disp 3"<<endl;
+		}
+
+		void disp4(){
+			cout<<"parent disp 4"<<endl;
+		}
+};
+class sub:private parent
+{
+	private:
+		int num;
+	public:
+		parent::disp3;
+		parent::disp1;
+		sub(int k){
+			num = k;
+			cout<<"In default const of sub"<<endl;
+		}
+		void disp5(){
+			disp1();
+			cout<<"sub disp 5"<<endl;
+		}
+};
+
+void main(){
+	sub s(30);
+	s.disp5();
+	s.disp3();
+	s.disp1();
+}
+
+
+
+
+//3) 
+//class course
+//{
+//	//here
+//};
+//class DacCourse:public course
+//{
+//	// here
+//};
+//
+//you should be able to say following
+//
+//course *c=new course;
+//c->fees(); // course version should be called
+//c=new DacCourse;
+//c->fees();  // DacCourse version should be called
+
+#include<iostream>
+using namespace std;
+class course
+{
+	public:
+		virtual void fees(){
+			cout<<"In course fees()"<<endl;
+		}
+};
+
+class DacCourse:public course
+{
+	public:
+		void fees(){
+			cout<<"In DacCourse fees()"<<endl;
+		}
+};
+
+void main(){
+
+course *c=new course;
+c->fees(); // course version should be called
+c=new DacCourse;
+c->fees();  // DacCourse version should be called
+}
+
+
+
+//4) 
+//Create a base class FourWheeler. Declare pure virtual function “void start()” in it. 			
+//Define following sub classes for this class. 
+//A) Qualis b) Sumo c) Volvo 					
+//Define “start” function in these classes.
+//In main function , create array of pointer to FourWheeler which will contain objects of these three sub classes. 
+//Now traverse the array and call all the child class methods.
+
+
+#include<iostream>
+using namespace std;
+class FourWheeler
+{
+	public:
+		virtual void start()=0;
+};
+
+class Qualis:public FourWheeler
+{
+	public:
+		void start(){
+			cout<<"In Qualis start()"<<endl;
+		}
+};
+
+class Sumo:public FourWheeler
+{
+	public:
+		void start(){
+			cout<<"In Sumo start()"<<endl;
+		}
+};
+
+class Volvo:public FourWheeler
+{
+	public:
+		void start(){
+			cout<<"In Volvo start()"<<endl;
+		}
+};
+void main(){
+
+	FourWheeler *arr[3]={new Qualis,new Sumo,new Volvo};
+	
+	for(int i=0;i<3;i++){
+		arr[i]->start();
+	}
+}
+
+
+
+//5)
+//Define a class “MyNum” having a member variable “int num” and “void disp()”;	
+//	From main function, perform following				
+//	a) MyNum m1(20);						b) m1=100; //Do not use Constructor for this purpose			
+//	c) int k;						
+//	d) k=m1;							
+//	e) cout<<endl<<k<<endl;
+
+
+#include<iostream>
+using namespace std;
+class MyNum
+{
+	private:
+		int num;
+	public:
+		MyNum(int k){
+			num = k;
+		}
+		 void disp(){
+			cout<<num<<endl;	
+		 }
+
+		 void operator=(int k){
+			num=k;
+		 }
+
+		 operator int(){
+			return num;
+		 }
+};
+void main(){
+	MyNum m1(20);			
+	m1.disp();
+	m1=100; //Do not use Constructor for this purpose			
+	m1.disp();
+	int k;						
+	k=m1;							
+	cout<<k<<endl;
+}<k<<endl;
+}
+
+
+
+
+//6) create a base1 and base2 classes in the library.
+//constructors, member variables and functions you can have in the above classes of your choice.
+//
+//now create an application where you have to create a child class of above classes.
+//in the main function create an instance of child class and try to access methods of base1 and base2.
+
+//Header
+
+class FourWheeler
+{
+private:
+	int num;
+	public:
+	 void start();
+	 int getNum();
+	 FourWheeler(int);
+};
+
+class Qualis
+{
+	private:
+	int num1;
+	public:
+		Qualis(int);
+		int getNum1();
+		void disp();
+};
+
+//Developer
+
+#include<iostream>
+#include"C:\Users\vita1\Desktop\tar\Inheritance\developer\q6dev\q6dev\Header.h"
+using namespace std;
+
+void FourWheeler:: start(){
+	cout<<"Fourwheeler start()"<<endl;
+}
+int FourWheeler:: getNum(){
+	cout<<"Fourwheeler start()"<<endl;
+	return num;
+}
+FourWheeler::FourWheeler(int k){
+	 num=k;
+}
+
+Qualis::Qualis(int k){
+	 num1=k;
+}
+int Qualis:: getNum1(){
+	cout<<"Qualis start()"<<endl;
+	return num1;
+}
+void Qualis:: disp(){
+	cout<<"This is a demo for client dev in c++ "<<endl;
+}
+
+
+//Client
+
+#include<iostream>
+#include"C:\Users\vita1\Desktop\tar\Inheritance\developer\q6dev\q6dev\Header.h"
+using namespace std;
+
+class cars:public FourWheeler,public Qualis
+{
+public:
+	cars():FourWheeler(10),Qualis(5)
+	{
+		cout<<"in cars default"<<endl;
+	}
+};
+void main(){
+	cars c;
+	c.getNum();
+	c.getNum1();
+	c.disp();
+	c.start();
+}
+
+
+//7)
+//Create a base class “Subject”.Declare pure virtual function “void maxmarks()” in it.  
+//Define following sub classes for this class. A) Maths b) History c) English.	Define “maxmarks” in these classes.
+//now write a global function "show" which will accept "subject class pointer" as an argument. 
+//this function should be able to call "maxmarks()" of any child class which is passed.
+//From main function try to call this function by passing various child classes.
+#include<iostream>
+using namespace std;
+class Subject
+{
+	public:
+		virtual void maxmarks()=0;
+};
+
+class Maths:public Subject
+{
+	public:
+		void maxmarks(){
+			cout<<"In Maths maxmarks()"<<endl;
+		}
+};
+
+class History:public Subject
+{
+	public:
+		void maxmarks(){
+			cout<<"In History maxmarks()"<<endl;
+		}
+};
+
+class English:public Subject
+{
+	public:
+		void maxmarks(){
+			cout<<"In English maxmarks()"<<endl;
+		}
+};
+
+void show(Subject *ptr){
+
+	ptr->maxmarks();
+}
+void main(){
+
+	show(new Maths());
+	show(new History());
+	show(new English());
+	
+}
+
+
+//8) same as above except it has to be done using reference of parent class.
+
+#include<iostream>
+using namespace std;
+class Subject
+{
+	public:
+		virtual void maxmarks()=0;
+};
+
+class Maths:public Subject
+{
+	public:
+		void maxmarks(){
+			cout<<"In Maths maxmarks()"<<endl;
+		}
+};
+
+class History:public Subject
+{
+	public:
+		void maxmarks(){
+			cout<<"In History maxmarks()"<<endl;
+		}
+};
+
+class English:public Subject
+{
+	public:
+		void maxmarks(){
+			cout<<"In English maxmarks()"<<endl;
+		}
+};
+
+void show(Subject &ptr){
+
+	ptr.maxmarks();
+}
+void main(){
+	Maths m;
+	History h;
+	English e;
+	show(m);
+	show(h);
+	show(e);
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

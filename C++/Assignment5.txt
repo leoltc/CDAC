@@ -1,0 +1,248 @@
+//1) class Hour
+//{
+//	private:
+//		int hr;
+//	public:
+//		parameterized constructor
+//		disp method
+//}
+//class Minute
+//{
+//	private:
+//		int mnt;
+//	public:
+//		parameterized constructor
+//		disp method
+//}
+//
+//write a program to convert minutes to hours.
+//(Use operator= for conversion.)
+
+Solution 1:
+
+#include<iostream>
+using namespace std;
+class Minute;
+class Hour
+{
+	private:
+		int hr;
+	public:
+		Hour(int k){
+			hr = k;
+		}
+
+		void disp(){
+			cout<<hr<<endl;
+		}
+
+		void operator=(Minute &ref);
+	
+};
+class Minute
+{
+	private:
+		int mnt;
+	public:
+
+		Minute(int k){
+			mnt = k;
+		}
+
+		int getmnt(){
+			return mnt;
+		}
+
+		void disp(){
+			cout<<mnt<<endl;
+		}
+
+};
+
+void Hour::operator =(Minute &ref){
+			this->hr=ref.getmnt()/60;
+}
+void main(){
+	Hour h(2);
+	Minute m(180);
+	h.disp();
+	m.disp();
+	h=m;
+	h.disp();
+
+}
+
+
+Solution 2:
+
+
+#include<iostream>
+using namespace std;
+class Minute;
+class Hour
+{
+	private:
+		int hr;
+	public:
+		Hour(int k){
+			hr = k;
+		}
+
+		void disp(){
+			cout<<hr<<endl;
+		}
+
+	
+};
+class Minute
+{
+	private:
+		int mnt;
+	public:
+
+		Minute(int k){
+			mnt = k;
+		}
+
+		int getmnt(){
+			return mnt;
+		}
+
+		void disp(){
+			cout<<mnt<<endl;
+		}
+
+		operator Hour(){
+			return Hour(mnt/60);
+		}
+};
+
+
+void main(){
+	Hour h(2);
+	Minute m(180);
+	h.disp();
+	m.disp();
+	h=m;
+	h.disp();
+
+}
+
+
+
+
+//2)write a number class with
+//int num;
+//void disp(){}
+//
+//u should be able to do following
+//
+//number n1(20);
+//int k=-n1;
+//
+//n1+=5;
+//n1.disp()
+//
+//number n2(35);
+//if(n1!=n2)
+//{
+//	some message
+//}
+//
+//
+//
+//number n3(12);
+//
+//if(n3 < n1)
+//{
+//	some message
+//}
+//
+//number n4;
+//
+//n4=n2*n3;
+
+#include<iostream>
+using namespace std;
+class number
+{
+private:
+	int num;
+public:
+	void disp()
+	{
+		cout<<num<<endl;
+	}
+	number(int k)
+	{
+		num=k;
+	}
+
+	number(){
+	}
+
+	int getNum(){
+		return num;
+	}
+
+	operator int(){
+		return num;
+	}
+	number& operator+=(int k){
+		num=num+k;
+		 return *this;
+	}
+
+	bool operator!=(number &ref){
+		return num!=ref.num;
+	}
+
+	bool operator<(number &ref){
+		return num<ref.num;
+	}
+
+	number& operator*(number &ref){
+		return number(num*ref.num);
+	}
+	
+};
+
+
+void main(){
+	
+	number n1(20);
+	int k=-n1;
+	cout<<k<<endl;
+
+	n1+=5 ;
+	n1.disp();
+
+	number n2(35);
+	if(n1!=n2)
+	{
+		cout<<n1.getNum()<<"!="<<n2.getNum()<<endl;
+	}
+	else{
+		cout<<n1.getNum()<<"="<<n2.getNum()<<endl;
+	}
+
+
+	
+	number n3(26);
+
+	if(n3 < n1)
+	{
+		cout<<n3.getNum()<<"<"<<n1.getNum()<<endl;
+	}
+	else{
+		cout<<n3.getNum()<<">"<<n1.getNum()<<endl;
+	}
+
+
+	number n4;
+
+	n4=n2*n3;
+	n4.disp();
+	
+}
+

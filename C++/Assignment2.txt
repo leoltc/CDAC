@@ -1,0 +1,279 @@
+//1) create a class with constructors and destructors.
+//create array of instances and observe how program behaves.
+#include <iostream>
+using namespace std;
+class Myclass
+{
+	public:
+		Myclass()
+		{
+			cout<<"In Constructor"<<endl;
+		}
+		~Myclass()
+		{
+			cout<<"In Destructor"<<endl;
+		}
+};
+
+void main()
+{
+	Myclass arr[5];
+}
+
+
+//2) create a class with constructors and destructor.
+//create 2 instances on stack and 1 instance on heap. observe the invocation of constructors and destructors.
+#include <iostream>
+using namespace std;
+class Myclass
+{
+	public:
+		Myclass()
+		{
+			cout<<"In Constructor"<<endl;
+		}
+		~Myclass()
+		{
+			cout<<"In Destructor"<<endl;
+		
+		}
+		
+};
+
+void main()
+{
+	Myclass arr1;
+	Myclass arr2;
+	Myclass *arr3= new Myclass;
+	delete arr3;
+}
+
+
+//3)create a class "MyClass1"
+//with members and member function "disp1().
+//create another class "MyClass2"
+//with members and member function "disp2().
+//now try to invoke disp1() from disp2()
+//in the main() function, create instances of both the classes and invoke their member functions.
+
+//4) create a class.
+//accept from user, how many instances are required.
+//Accordingly create array of instances dynamically.
+//Now make sure that u call destructor for each and every instances.
+
+#include<iostream>
+using namespace std;
+
+class MyClass1{
+	private:
+		int num;
+
+	public:
+		void disp(int);
+		MyClass1 (int);
+		MyClass1(){
+			cout<<"In default const"<<endl;
+		}
+};
+
+class MyClass2{
+	private:
+		int num2;
+	public:
+		void disp2(MyClass1 &);
+		MyClass2 (int);
+};
+
+void MyClass1 :: disp(int num){
+	
+	cout<<num<<endl;
+}
+
+MyClass1 :: MyClass1(int p){
+	num=p;
+	cout<<num<<"InMYCLASS1"<<endl;
+}
+
+void MyClass2 :: disp2(MyClass1 &a){
+	a.disp(2);
+	cout<<num2<<endl;
+}
+
+MyClass2 :: MyClass2(int p){
+	num2=p;
+	cout<<num2<<"InMYCLASS2"<<endl;
+}
+
+void main(){
+	MyClass1 m1(20);
+	MyClass2 *m2 = new MyClass2(100);
+	m2->disp2(m1);
+
+}
+		
+
+
+
+
+//4) create a class.
+//accept from user, how many instances are required.
+//Accordingly create array of instances dynamically.
+//Now make sure that u call destructor for each and every instances.
+
+#include<iostream>
+using namespace std;
+class MyClass{
+	private: 
+		int num;
+
+	public:
+		void disp();
+		MyClass(){
+			cout<<"Constructor call"<<endl;
+		}
+		~MyClass(){
+			cout<<"destructor call"<<endl;
+		}
+
+
+};
+void main(){
+	int record;
+	cout<<"How many instances do you want to create"<<endl;
+	cin>>record;
+	MyClass *m1 = new MyClass[record];
+	delete []m1;
+}
+
+
+
+//5) create a class, define different types of constructors. 
+//in main create n number of objects. At the end display how many constructors are created for a class.
+//ignore all setNum and num variables
+
+#include<iostream>
+using namespace std;
+static int a=0;
+class MyClass{
+	private:
+		int num;
+	public:
+		MyClass()
+		{
+			cout<<"In default"<<endl;
+			a++;
+		}
+
+		MyClass(int num){
+			this->num=num;
+			cout<<this->num<<"In parameterized"<<endl;
+			a++;
+		}
+
+		MyClass(MyClass &ref){
+			num=ref.num;
+			cout<<num<<"In copy constructor"<<endl;
+			a++;
+		}
+
+		void setNum(int num){
+			this->num=num;
+			cout<<this->num<<"In setNum"<<endl;
+		}
+
+};
+
+void main(){
+	
+	MyClass m2; 
+	m2.setNum(0);
+	//MyClass *m1 = new MyClass(20);
+	MyClass m1(20);
+	//m1->setNum(1);
+	MyClass m3=m1;
+	m3.setNum(2);
+	cout<<"Count is"<<a<<endl;
+}
+
+
+
+
+6) 
+Developer Side
+	create a class "book" with
+		int bookid
+		char *bookname
+		int price
+
+	define parameterized constructor only for this class.
+	define 3 getter functions.
+
+create necessary header and lib file and distribute it to the client.
+
+Client Side
+
+	 create 2 instances
+	1 on stack and 1 on heap.
+	pass the necessary values while creating instances.
+	call the getter functions.
+
+Header.h
+class Book{
+	private:
+		int bookid;
+		char *bookname;
+		int price;
+	public:
+		Book();
+		Book(int,char*,int);
+		int getBookid();
+		char* getBookname();
+		int getPrice();
+};
+
+Dev.cpp
+#include <iostream>
+#include "C:\Users\vita1\Desktop\tar\Ass2\Dev\Devpro\Devpro\Head.h"
+using namespace std;	
+	Book::Book(){
+			cout<<"Default constructor"<<endl;
+		}
+
+	Book::Book(int bookid,char *bookname,int price){
+			this->bookid=bookid;
+			this->bookname = new char[strlen(bookname)+1];
+			strcpy(this->bookname,bookname);
+			this->price = price;
+		}
+
+	int Book::getBookid(){
+			return bookid;
+		}
+	char* Book::getBookname(){
+			return bookname;
+		}
+
+	int Book::getPrice(){
+			return price;
+		}
+
+
+
+Client.cpp
+#include <iostream>
+#include "C:\Users\vita1\Desktop\tar\Ass2\Dev\Devpro\Devpro\Head.h"
+using namespace std;
+ /*create 2 instances
+	1 on stack and 1 on heap.
+	pass the necessary values while creating instances.
+	call the getter functions.*/
+void main(){
+	Book b;
+	Book *b2 = new Book(1,"Chetan",500);
+	cout<<b2->getBookid()<<endl<<b2->getBookname()<<endl<<b2->getPrice();
+}
+
+
+
+
+

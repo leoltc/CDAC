@@ -1,0 +1,248 @@
+//1) class Number
+//   {
+//       int num;
+//   }
+//In the main function,
+//Number n1(8),n2(4),n3(20),n4(6),n5;
+//n5=n1-n2*n3/n4;
+
+#include<iostream>
+using namespace std;
+class Number
+   {
+       int num;
+   public:
+	   Number(int k){
+		   num=k;
+			cout<<"Iin param constructor"<<endl;
+	   }
+
+	   void getNum(){
+		   cout<<num<<endl;
+	   }
+
+	   Number(){
+	   cout<<"Iin default constructor"<<endl;
+	   }
+
+
+	   Number operator*(Number& ref){
+		   return Number (num*ref.num);
+	   }
+
+	   Number operator+(Number& ref){
+		   return Number (num+ref.num);
+	   }
+
+	   Number operator-(Number& ref){
+		   return Number (num-ref.num);
+	   }
+
+	    Number operator/(Number& ref){
+		   return Number (num/ref.num);
+	   }
+   };
+void main(){
+
+	Number n1(4),n2(2),n3(4),n4(2),n5;
+	n5=n1-n2*n3/n4;
+	n5.getNum();
+
+}
+
+
+
+//2) class sample
+//   {
+//	private:
+//		char ch;
+//	public:
+//		sample(char ch)
+//		{
+//			this->ch=ch;
+//		}
+//  };
+//
+//given above class.
+//
+//write a global function "display" which will access "ch" directly and display it.
+//call this function from main function.
+
+
+#include<iostream>
+using namespace std;
+
+class sample
+   {
+	private:
+		char ch;
+	public:
+		sample(char ch)
+		{
+			this->ch=ch;
+		}
+		friend void display(sample &);
+  };
+
+void display(sample &ref){
+	cout<<ref.ch<<endl;
+}
+
+void main(){
+	sample s('a');
+	display(s);
+}
+
+
+
+
+
+
+//3) Given
+//
+//class Module1
+//{
+//	int duration;
+//	public:
+//		Module1(int k)
+//		{
+//			duration=k;
+//		}
+//};
+//
+//class Module2
+//{
+//	int duration;
+//	public:
+//		Module2(int k)
+//		{
+//			duration=k;
+//		}
+//};		
+//	
+//write a global function "check" which will take 2 modules (i.e. Module1 and Module2 ) and check whether Modules are same or not.
+//call this "check" function from main function.	
+
+
+#include<iostream>
+using namespace std;
+
+class Module2;
+class Module1
+{
+	int duration;
+	public:
+		Module1(int k)
+		{
+			duration=k;
+		}
+
+		friend void check(Module1 &, Module2 &);
+};
+
+class Module2
+{
+	int duration;
+	public:
+		Module2(int k)
+		{
+			duration=k;
+		}
+	
+		friend void check(Module1 &, Module2 &);
+};		
+
+
+void check(Module1 &ref1, Module2 &ref2){
+	if(ref1.duration==ref2.duration)
+		cout<<"Modules are same as  duration are same"<<endl;
+	else
+		cout<<"Modules are different"<<endl;
+}
+
+void main(){
+	Module1 m1(210);
+	Module2 m2(200);
+	check(m1,m2);
+}
+
+
+
+
+
+//4) Define a class , write two member functions 
+//	void disp1(){ //some code }
+//	void disp2(){ // some code }
+//
+//	Try to call disp1   from    disp2.
+
+
+#include<iostream>
+using namespace std;
+
+class Module1
+{
+	int duration;
+	public:
+		Module1(int k)
+		{
+			duration=k;
+		}
+	void disp1(){
+		cout<<"In disp1"<<endl;
+	}
+
+	void disp2(){
+		disp1();
+		cout<<"In disp2"<<endl;
+	}
+		
+};
+
+
+void main(){
+	Module1 m1(210);
+	m1.disp2();
+}
+
+
+
+
+
+
+//5) Define a class with constructor and  member function
+//
+//	create object, call member function
+//	now create a reference to that object, and using that reference try to call member function
+
+#include<iostream>
+using namespace std;
+
+class Module1
+{
+	int duration;
+	public:
+		Module1(int k)
+		{
+			duration=k;
+		}
+	void disp1(){
+		cout<<"In disp1"<<endl;
+	}
+
+	void disp2(){
+		disp1();
+		cout<<"In disp2"<<endl;
+	}
+		
+};
+
+
+void main(){
+	Module1 m1(210);
+	m1.disp2();
+	Module1 &m=m1;
+	m.disp1();
+}
+
+

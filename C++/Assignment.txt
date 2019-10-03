@@ -1,0 +1,326 @@
+//1) using cin and cout, accept name,address,age of a person and print it.
+
+#include<iostream>
+using namespace std;
+int main(){
+	cout<<"Enter name,address,age"<<endl;
+	int age;
+	char name[20],address[20];
+	cin>>name>>address>>age;
+	cout<<"Name: "<<name<<"\t"<<"Address: "<<address<<"\t"<<"Age: "<<age<<"\t"<<endl;
+
+}
+
+
+
+//2) create following structure
+//struct book
+//{
+//	char bid[5];
+//	char name[30];
+//	int price;
+//};
+//ask user how many records he wants to create and accordingly allocate memory.
+//accept values from user and display.
+//( Hint :-  use  "new" operator)
+
+#include<iostream>
+using namespace std;
+
+struct book
+{
+	char bid[5];
+	char name[30];
+	int price;
+};
+
+void main(){
+	cout<<"How many records do you want to create"<<endl;
+	int rec;
+	cin>>rec;
+	book *b;
+	b = new book[rec];
+	cout<<"Enter book id,name,price "<<endl;
+	for (int i = 0; i < rec; i++)
+	{
+		cin>>b[i].bid;
+		cin>>b[i].name;
+		cin>>b[i].price;
+		
+	}
+	cout<<"Entered book id,name,price are:"<<endl;
+	for (int i = 0; i < rec; i++)
+	{
+		cout<<b[i].bid<<endl;
+		cout<<b[i].name<<endl;
+		cout<<b[i].price<<endl;
+		
+	}
+		
+}
+
+
+
+
+//3) create a structure "Employee" 
+//with members 
+//	int id
+//	char name[20];
+//	char desig[20];
+//now access it using
+//a) array 
+//b) DMA
+
+#include<iostream>
+using namespace std;
+
+struct Employee
+{
+	int id;
+	char name[30];
+	char desig[20];
+};
+
+void main(){
+	Employee e[5];
+	
+	e[0].id=1;
+	strcpy(e[0].name,"Raju");
+	strcpy(e[0].desig,"SE");
+
+	e[1].id=2;
+	strcpy(e[1].name,"chacha");
+	strcpy(e[1].desig,"ST");
+
+	for(int i=0;i<2;i++){
+		cout<<e[i].id<<"\t"<<e[i].name<<"\t"<<e[i].desig<<endl;
+	}
+}
+
+
+
+
+//4) create a library in c in which,
+//write a function which will accept 2 numbers and return the difference between 2 numbers
+//write appropriate header file.
+//
+//write a client code to access this library.
+
+#include<stdio.h>
+#include "C:\Users\vita1\Desktop\Demo\Assignment_enhancement\Assignment_enhancement\Head.h"
+void main(){
+	int a=100,b=60;
+	printf("%d",diff(a,b));
+
+}
+
+
+
+#include<stdio.h>
+int diff(int a, int b)
+{
+	return a-b;
+}
+
+
+int diff(int , int);
+
+
+
+//5) given
+//	void disp(int); function.
+//
+//now create a function pointer and call this function using function pointer.
+#include<iostream>
+using namespace std;
+
+void disp(int a){
+	cout<<a<<"t"<<endl;
+}
+
+void main(){
+	int a=20;
+	void(*ptr)(int);
+	ptr=disp;
+	
+	ptr(a);	
+	
+
+}
+
+
+
+//6) write a function to swap 2 given numbers using pointers.
+
+#include<iostream>
+using namespace std;
+
+void disp(int *a,int *b){
+	int c=*a;
+	*a=*b;
+	*b=c;
+	cout<<*a<<*b<<endl;
+}
+
+void main(){
+	int a=20,b=60;
+	
+	disp(&a,&b);
+	cout<<a<<b<<endl;
+
+}
+
+
+
+//7) accept from user how many initials he has in his name, now allocate a memory accordingly and accept his initial. [use new operator]
+
+#include<iostream>
+using namespace std;
+
+void main(){
+	int a;
+	cout<<"Enter your initials"<<endl;
+	cin>>a;
+	char *name= new char[a];
+	cout<<"Enter name"<<endl;
+	cin>>name;
+	cout<<name<<endl;
+
+}
+
+
+
+
+//8) write a function which can accept minimum 3 characters and maximum 5 characters and display them. ( use "default arguments")
+
+#include<iostream>
+using namespace std;
+void disp(int a,int b,int c,int d=0,int e=0)
+{
+	cout<<a<<b<<c<<d<<e<<endl;
+}
+
+
+void main(){
+	disp(3,5,6,7,8);
+	disp(3,5,7);
+	disp(3,5,6,7);
+
+}
+
+
+
+//9)write a function which will return reference of structure.
+//( note:- any structure of ur choice u can define )
+//
+#include<iostream>
+using namespace std;
+struct book
+{
+	int price;
+}m={1255};
+
+book& disp()
+{
+
+	return m;
+}
+
+void main(){
+	
+	cout<<disp().price<<endl;
+}
+
+
+
+//
+//10)write a function which takes 3 arguments
+//variable, pointer and a reference.(any datatype)
+//invoke this function and show how "call by value","call by address" and "call by reference" will work.
+#include<iostream>
+using namespace std;
+
+void  fun(char a,int *b,int &c)
+{
+	cout<<a<<"\t"<<*b<<"\t"<<c<<"\t"<<endl;
+}
+
+
+void main()
+{
+	int add=20;
+	fun('a',&add,add);
+}
+
+
+
+
+//11)define 3 different structures and initialize their members.
+//now write 3 different functions,but with the same name.
+//these functions will accept each structure respectively and display their members.
+#include<iostream>
+using namespace std;
+
+struct A
+{ int num1;
+}a1={100};
+
+struct B
+{
+	int num2;
+}b1={200};
+struct C
+{
+	int num3;
+}c1={300};
+
+void disp(A n)
+{
+	cout<<n.num1<<endl;
+}
+void disp(B n)
+{
+	cout<<n.num2<<endl;
+}
+
+
+void disp(C n)
+{
+	cout<<n.num3<<endl;
+}
+
+void main()
+{
+  disp(a1);
+  disp(b1);
+  disp(c1);
+}
+
+//12) create a library in c in which,
+//write a function which will accept 2 numbers and return the difference between 2 numbers.
+//write appropriate header file.
+//
+//write c++ client code to access this library.
+#include<iostream>
+#include "C:\Users\vita1\Desktop\Demo\Assignment_enhancement\Assignment_enhancement\Head.h"
+using namespace std;
+void main(){
+	int a=100,b=60;
+	int y = diff(a,b);
+	cout<<y<<endl;
+}
+
+//h file
+#ifdef __cplusplus
+extern "C" {
+#endif
+int diff(int,int);
+#ifdef __cplusplus
+}
+#endif
+
+//Library file
+#include<stdio.h>
+int diff(int d,int e){
+	return d-e;
+}
